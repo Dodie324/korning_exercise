@@ -1,45 +1,34 @@
 -- DEFINE YOUR DATABASE SCHEMA HERE
-DROP TABLE IF EXISTS employee;
-DROP TABLE IF EXISTS customer;
-DROP TABLE IF EXISTS product;
--- DROP TABLE IF EXISTS invoice;
+DROP TABLE IF EXISTS invoices;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS customers;
+DROP TABLE IF EXISTS employees;
 
-CREATE TABLE employee (
+CREATE TABLE employees (
 id SERIAL PRIMARY KEY,
 name VARCHAR(255) NOT NULL,
-email TEXT NOT NULL
+email VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE customer (
+CREATE TABLE customers (
 id SERIAL PRIMARY KEY,
 name VARCHAR(255) NOT NULL,
 account_num VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE product (
+CREATE TABLE products (
 id SERIAL PRIMARY KEY,
 name VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE sales_head (
-id SERIAL PRIMARY KEY,  
-invoice_no INT NOT NULL,
-invoice_date VARCHAR(255) NOT NULL,
-invoice_freq VARCHAR(255) NOT NULL,
-employee_id VARCHAR(255) NOT NULL,
-customer_id VARCHAR(255) NOT NULL,
-FOREIGN KEY (employee_id) REFERENCES employee(id) NOT NULL,
-FOREIGN KEY (customer_id) REFERENCES customer(id) NOT NULL 
-);
-
-CREATE TABLE sales_body (
+CREATE TABLE invoices (
 id SERIAL PRIMARY KEY,
-unit_sold INT NOT NULL,
-sale_amount VARCHAR(255) NOT NULL,
-product_id VARCHAR(255) NOT NULL,
-invoice_id VARCHAR(255) NOT NULL,
-invoice_date_id VARCHAR(255) NOT NULL,
-FOREIGN KEY (product_id) REFERENCES product(id),
-FOREIGN KEY (invoice_id) REFERENCES sales_head(invoice_no),
-FOREIGN KEY (invoice_date_id) REFERENCES sales_head(invoice_date)
+sale_date VARCHAR(20) NOT NULL,
+sale_amount VARCHAR(20) NOT NULL,
+units integer NOT NULL,
+invoice_number integer NOT NULL,
+frequency VARCHAR(50) NOT NULL,
+customer_id integer REFERENCES customers(id) NOT NULL,
+employee_id integer REFERENCES employees(id) NOT NULL,
+product_id integer REFERENCES products(id) NOT NULL
 ); 
